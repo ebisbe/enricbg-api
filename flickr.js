@@ -1,10 +1,10 @@
 import {success, failure} from './libs/response-lib';
 import {FLICKR_API_KEY, FLICKR_API_SECRET} from './config.js'
+let Flickr = require("node-flickr");
 
 export async function photos(event, context, callback) {
 
   try {
-    let Flickr = require("node-flickr");
     let keys = {
       api_key: FLICKR_API_KEY,
       secret: FLICKR_API_SECRET
