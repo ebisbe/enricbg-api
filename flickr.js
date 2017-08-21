@@ -1,29 +1,24 @@
 import {success, failure} from './libs/response-lib';
 import {FLICKR_API_KEY, FLICKR_API_SECRET} from './config.js'
-let Flickr = require("node-flickr");
+
+let Flickr = require('flickr-sdk');
+
 
 export async function photos(event, context, callback) {
 
   try {
-    let keys = {
-      api_key: FLICKR_API_KEY,
-      secret: FLICKR_API_SECRET
-    }
-    let flickr = new Flickr(keys);
+    var flickr = new Flickr({
+      apiKey: FLICKR_API_KEY,
+      apiSecret: FLICKR_API_SECRET
+    });
 
-    flickr.get("photos.search",
-      {
-        user_id: "144521588@N08",
-        per_page: 9,
-        page: 1,
-        sort: 'interestingness-desc'
-      },
-      function (err, result) {
-        if (err) {
-          callback(null, success(err));
-        } else {
-          callback(null, success(result.photos.photo));
-        }
+    flickr
+      .request()
+      .people("144521588@N08")
+      .media()
+      .get({ per_page: 9, page:1, sort: 'interestingness-desc'})
+      .then(function (response) {
+        callback(null, success(response.body.photos.photo));
       });
   }
   catch (e) {
