@@ -6,3 +6,5 @@ jspm_packages
 .serverless
 .webpack
 config.js
+.idea
+.DS_Store
