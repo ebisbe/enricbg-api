@@ -2,7 +2,7 @@ import uuid from 'uuid';
 import * as dynamoDbLib from './libs/dynamodb-lib';
 import {success, failure, validationError} from './libs/response-lib';
 import * as sesLib from './libs/email-lib';
-import joi from 'joi';
+import joi from '@hapi/joi';
 
 export async function main(event, context, callback) {
   const data = JSON.parse(event.body).params;
